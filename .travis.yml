@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run -e CI=true graneng/trying-docker npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-north-1"
+  app: "trying-docker"
+  env: "TryingDocker-env"
+  bucket_name: "elasticbeanstalk-eu-north-1-622846001608"
+  bucker_path: "trying-docker"
+  on:
+    branch: "master"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
